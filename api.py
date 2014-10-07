@@ -10,7 +10,7 @@ import json
 
 PUBLIC_KEY = "< insert public key here >"  
 PRIVATE_KEY = "< insert private key here >"
-BASE_API_URL = "https://www.coins-e.com/api/v2"
+BASE_API_URL = "https://www.coins-e.com/api/v3"
 
 
 print "Coins-E Trade API access test" 
@@ -49,8 +49,8 @@ def authenticated_request(url_suffix, method, post_args={}):
     post_data = urllib.urlencode(post_args)
     required_sign = hmac.new(PRIVATE_KEY, post_data, hashlib.sha512).hexdigest()
     headers = {}
-    headers['key'] = PUBLIC_KEY
-    headers['sign'] = required_sign
+    headers['HTTP_KEY'] = PUBLIC_KEY
+    headers['HTTP_SIGN'] = required_sign
     url_request_object = urllib2.Request("%s/%s" % (BASE_API_URL,url_suffix),
                                          post_data,
                                          headers)    
